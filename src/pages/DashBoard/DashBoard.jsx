@@ -1,9 +1,9 @@
 // src/pages/DashboardPage.jsx
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate ,useLocation } from "react-router-dom";
 import "./DashBoard.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 export default function DashboardPage() {
   const location = useLocation();
   const message = location.state?.message || "No Data";
@@ -11,7 +11,7 @@ export default function DashboardPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+   const [response, setResponse] = useState("");
  useEffect(() => {
    const checkToken = async () => {
      const token = localStorage.getItem("Token");
@@ -26,9 +26,14 @@ export default function DashboardPage() {
              },
            }
          );
-         if (res.data.success === true) {
-           navigate("/LoginSuccess", { state: { email: res.data.email } });
-         }
+          if (res.data.success === true) {
+            // ✅ added proper check
+            navigate("/LoginSuccess", {
+              state: { email: res.data.email },
+              replace: true, // ✅ added replace so it won't come back
+            });
+          }
+
        } catch (error) {
          console.log("Token invalid or server error:", error);
        }
@@ -48,10 +53,10 @@ export default function DashboardPage() {
       
       );
      
-      if(res.data.success == true){
+      if(res.data.success === true){
             localStorage.setItem("Token",res.data.token);
            
-            navigate("/LoginSuccess",{state:{email}});
+            navigate("/LoginSuccess",{state:{email},replace:true});
       }else{
             alert("Login Failed");
       }
@@ -71,6 +76,7 @@ export default function DashboardPage() {
         <p>Welcome to your dashboard! ✨</p>
         <p>Data from home Page: {message}</p>
         <p>Data from Server status:{status}</p>
+        <p>{response}</p> {/* ✅ show error message if exists */}
       </div>
       <div className="login-card">
         <form onSubmit={handleLogin}>
