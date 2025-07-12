@@ -1,0 +1,48 @@
+/* Reset some defaults */
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+}
+
+/* Make sure html & body take full size */
+html,
+body,
+#root {
+      width: 100%;
+      height: 100%;
+}
+
+/* Full screen container, centered */
+
+
+/* Card styling */
+.card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      align-content: center;
+      align-items: center;
+      max-width: 450px;
+      width: 90%;
+      /* responsive width */
+}
+
+/* Button styling */
+.btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: teal;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+}
+
+.btn:hover {
+      background-color: #006666;
+}
